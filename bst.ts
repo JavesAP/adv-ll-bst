@@ -19,20 +19,60 @@ export class BST {
   }
 
   // EASY: Insert a value into the BST
-  insert(value: number): void {
+  insert(value: number, current: BSTNode | null = null): void {
     // TODO: Implement insert method
+    const node = new BSTNode(value)
+    if (!current) {
+      if (this.root === null) {
+        this.root = node
+      } else {
+        if (node.value < this.root.value) {
+          this.root.left ? this.insert(value, this.root.left) : this.root.left = node
+        } 
+        if (node.value > this.root.value) {
+          this.root.right ? this.insert(value, this.root.right) : this.root.right = node
+        }
+      }
+    } else {
+      if (node.value < current.value) {
+        current.left ? this.insert(value, current.left) : current.left = node
+      }
+      if (node.value > current.value) {
+        current.right ? this.insert(value, current.right) : current.right = node
+      }
+    }
   }
 
   // EASY: Check if a value exists in the BST
-  contains(value: number): boolean {
+  contains(value: number, current: BSTNode | null = null): boolean {
     // TODO: Implement contains method
+    if (!current) {
+      current = this.root
+    } 
+    
+    if (!current) return false
+     
+    if (value === current.value) {
+      return true
+    } else if (value < current.value && current.left !== null) {
+      return this.contains(value, current.left)
+    } else if (value > current.value && current.right !== null) {
+      return this.contains(value, current.right)
+    }
+    
     return false;
   }
 
   // MEDIUM: Find the minimum value in the BST
-  findMin(): number | null {
+  findMin(current: BSTNode | null = null): number | undefined {
     // TODO: Implement findMin method
-    return null;
+    if (!current) current = this.root
+    
+    if (current?.left) {
+      return this.findMin(current.left)
+    } else if (!current?.left) {
+      return current?.value
+    }
   }
 
   // MEDIUM: Find the maximum depth of the BST
