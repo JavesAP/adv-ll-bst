@@ -45,8 +45,22 @@ export class LinkedList {
   }
 
   // MEDIUM: Reverse the linked list
-  reverse(): void {
+  reverse(currentNode: ListNode | null = null, previousNode: ListNode | null = null, newList = new LinkedList()): void {
     // TODO: Implement reverse method
+    if (currentNode && previousNode) {
+      if (currentNode.next) this.reverse(currentNode.next, currentNode, newList)
+      // new list created while function starts closing
+      if (!newList.head) newList.head = currentNode
+      if (previousNode)
+        newList.append(previousNode.value)
+    } else if (!currentNode && !previousNode) {
+      currentNode = this.head
+      if (currentNode?.next) this.reverse(currentNode.next, currentNode, newList)
+      if (currentNode) newList.append(currentNode.value)
+    }
+    
+    if (currentNode && !previousNode) this.head = newList.head
+    return
   }
 
   // MEDIUM: Remove a node by value
