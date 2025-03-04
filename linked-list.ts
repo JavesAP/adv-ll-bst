@@ -17,14 +17,31 @@ export class LinkedList {
   }
 
   // EASY: Append a value to the end of the list
-  append(value: number): void {
+  append(value: number, listNode: ListNode | null = null): void {
     // TODO: Implement append method
+    if (!this.head) {
+      this.head = new ListNode(value)
+    } else {
+      if (!listNode) listNode = this.head
+      if (!listNode) return 
+    
+      listNode.next ? this.append(value, listNode.next) : listNode.next = new ListNode(value)
+    }
   }
 
   // EASY: Find a value in the list
-  find(value: number): boolean {
+  find(value: number, ln: ListNode | null = null): boolean {
     // TODO: Implement find method
-    return false;
+    if (!ln) ln = this.head
+    
+    if (ln) {
+      if (ln.value === value) {
+        return true
+      } else if (ln.next) {
+        return this.find(value, ln.next)
+      } 
+    }
+    return false
   }
 
   // MEDIUM: Reverse the linked list

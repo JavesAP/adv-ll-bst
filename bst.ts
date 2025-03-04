@@ -84,6 +84,16 @@ export class BST {
   // MEDIUM: Depth-First Search (DFS) Traversal
   dfs(): number[] {
     // TODO: Implement DFS traversal
+    /* if (!nodeSet && !node) {
+      nodeSet = new Set([this.root.value])
+      node = this.root
+    }
+    if (nodeSet.size <= 0) return nodeSet
+    
+    const leftBranch = dfs(nodeSet, node.left)
+    const rightBranch = dfs(nodeSet, node.right)
+    
+    return nodeSet */
     return [];
   }
 
